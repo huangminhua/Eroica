@@ -1,5 +1,11 @@
 package eroica.util;
 
+/**
+ * Some utils of strings.
+ * 
+ * @author Minhua HUANG
+ *
+ */
 public class StringUtils {
 	public static String[] splitAndTrim(String str, String regex) {
 		String[] ss = str.split(regex);

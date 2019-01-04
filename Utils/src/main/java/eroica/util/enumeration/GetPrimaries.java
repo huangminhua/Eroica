@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 /**
  * Used by methods of composite enums, the methods which return the primary enum
  * objects.
+ * 
+ * @author Minhua HUANG
  */
 
 @Documented
