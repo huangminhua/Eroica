@@ -4,8 +4,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.channels.AsynchronousServerSocketChannel;
 
-import eroica.network.utility.entity.ServerInformation;
-import eroica.network.utility.entity.portproxy.PortProxyServerInformation;
+import eroica.network.utility.domain.ServerInformation;
+import eroica.network.utility.domain.portproxy.PortProxyServerInformation;
 import eroica.network.utility.service.BaseService;
 import org.springframework.stereotype.Component;
 

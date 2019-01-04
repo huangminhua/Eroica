@@ -1,11 +1,10 @@
-package eroica.network.utility.entity.portproxy;
+package eroica.network.utility.domain.portproxy;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 
-import eroica.network.utility.entity.StreamType;
-
+import eroica.network.utility.domain.StreamType;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 public class PortProxyStreamInformation {
-	private PortProxyConnectionInformation connInfo;
-	private StreamType streamType;
+	private final PortProxyConnectionInformation connInfo;
+	private final StreamType streamType;
 
 	public PortProxyStreamInformation(PortProxyConnectionInformation connInfo, StreamType streamType) {
 		this.connInfo = connInfo;
@@ -78,13 +77,13 @@ public class PortProxyStreamInformation {
 			try {
 				this.getInputSource().shutdownInput();
 			} catch (IOException e) {
-				log.warn("Shutdown input [" + this.getInputSource() + "] error. But nothing to remedy.", e);
+				log.info("Shutdown input [" + this.getInputSource() + "] error. But nothing to remedy.", e);
 			}
 		if (this.getOutputDestination() != null && this.getOutputDestination().isOpen())
 			try {
 				this.getOutputDestination().shutdownOutput();
 			} catch (IOException e) {
-				log.warn("Shutdown output [" + this.getOutputDestination() + "] error. But nothing to remedy.", e);
+				log.info("Shutdown output [" + this.getOutputDestination() + "] error. But nothing to remedy.", e);
 			}
 		if (!connInfo.isDownStreamOn() && !connInfo.isUpStreamOn())
 			connInfo.close();

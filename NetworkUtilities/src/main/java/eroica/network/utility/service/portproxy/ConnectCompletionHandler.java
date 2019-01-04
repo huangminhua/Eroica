@@ -2,11 +2,10 @@ package eroica.network.utility.service.portproxy;
 
 import java.nio.channels.CompletionHandler;
 
-import eroica.network.utility.entity.StreamType;
-import eroica.network.utility.entity.portproxy.PortProxyConnectionInformation;
-import eroica.network.utility.entity.portproxy.PortProxyStreamInformation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import eroica.network.utility.domain.StreamType;
+import eroica.network.utility.domain.portproxy.PortProxyConnectionInformation;
+import eroica.network.utility.domain.portproxy.PortProxyStreamInformation;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Operations after connection. Read from both down channel and up channel.
@@ -14,8 +13,8 @@ import org.slf4j.LoggerFactory;
  * @author Minhua HUANG
  *
  */
+@Slf4j
 public class ConnectCompletionHandler implements CompletionHandler<Void, PortProxyConnectionInformation> {
-	private static final Logger logger = LoggerFactory.getLogger(ConnectCompletionHandler.class);
 	private ConnectCompletionHandler() {
 	}
 
@@ -41,9 +40,8 @@ public class ConnectCompletionHandler implements CompletionHandler<Void, PortPro
 
 	@Override
 	public void failed(Throwable exc, PortProxyConnectionInformation connInfo) {
-		logger.error("Failed to connect to " + connInfo.getPortProxyInformation().getConnectAddress() + ":"
-				+ connInfo.getPortProxyInformation().getConnectPort() + ", so that the connection is to be closed.",
-				exc);
+		log.info("Failed to connect to " + connInfo.getServerInfo().getConnectAddress() + ":"
+				+ connInfo.getServerInfo().getConnectPort() + ", so that the connection is to be closed.", exc);
 		connInfo.close();
 	}
 

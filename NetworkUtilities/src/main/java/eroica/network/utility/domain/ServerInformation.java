@@ -1,4 +1,4 @@
-package eroica.network.utility.entity;
+package eroica.network.utility.domain;
 
 import java.net.InetAddress;
 import java.util.Date;

@@ -1,11 +1,12 @@
 package eroica.network.utility.service.portproxy;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 
-import eroica.network.utility.entity.portproxy.PortProxyConnectionInformation;
-import eroica.network.utility.entity.portproxy.PortProxyServerInformation;
+import eroica.network.utility.domain.portproxy.PortProxyConnectionInformation;
+import eroica.network.utility.domain.portproxy.PortProxyServerInformation;
 import eroica.network.utility.util.ChannelUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,31 +32,35 @@ public class AcceptCompletionHandler
 	}
 
 	@Override
-	public void completed(AsynchronousSocketChannel downChannel, PortProxyServerInformation attachment) {
+	public void completed(AsynchronousSocketChannel downChannel, PortProxyServerInformation serverInfo) {
+		try {
+			log.info("Accepted a new connection from " + downChannel.getRemoteAddress());
+		} catch (IOException e) {
+		}
 		// accept another connection
-		attachment.getServerChannel().accept(attachment, this);
+		serverInfo.getServerChannel().accept(serverInfo, this);
 		// open an asynchronous socket channel to the destination server
 		AsynchronousSocketChannel upChannel = null;
 		try {
 			upChannel = AsynchronousSocketChannel.open();
 			upChannel.bind(null);
 		} catch (Throwable t) {
-			log.error("An error occured when connecting the target server.", t);
+			log.info("An error occured when connecting the target server.", t);
 			ChannelUtils.closeChannel(upChannel);
 			ChannelUtils.closeChannel(downChannel);
 			return;
 		}
-		InetSocketAddress upSocketAddress = new InetSocketAddress(attachment.getConnectAddress(),
-				attachment.getConnectPort());
-		PortProxyConnectionInformation connectionInfo = new PortProxyConnectionInformation(attachment, downChannel,
+		InetSocketAddress upSocketAddress = new InetSocketAddress(serverInfo.getConnectAddress(),
+				serverInfo.getConnectPort());
+		PortProxyConnectionInformation connectionInfo = new PortProxyConnectionInformation(serverInfo, downChannel,
 				upChannel);
 		upChannel.connect(upSocketAddress, connectionInfo, ConnectCompletionHandler.getInstance());
 	}
 
 	@Override
-	public void failed(Throwable exc, PortProxyServerInformation attachment) {
-		log.warn("Failed to accept from " + attachment.getListenAddress() + ":" + attachment.getListenPort()
-				+ ". The server maybe shutdown.", exc);
+	public void failed(Throwable exc, PortProxyServerInformation portProxyInformation) {
+		log.info("Failed to accept from " + portProxyInformation.getListenAddress() + ":"
+				+ portProxyInformation.getListenPort() + ". The server maybe shutdown.", exc);
 	}
 
 }

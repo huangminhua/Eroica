@@ -1,10 +1,10 @@
-package eroica.network.utility.entity.portproxy;
+package eroica.network.utility.domain.portproxy;
 
 import java.net.InetAddress;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.util.Date;
 
-import eroica.network.utility.entity.ServerInformation;
+import eroica.network.utility.domain.ServerInformation;
 import eroica.network.utility.util.ChannelUtils;
 
 import lombok.Getter;

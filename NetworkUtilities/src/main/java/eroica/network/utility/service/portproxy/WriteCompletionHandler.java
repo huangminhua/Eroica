@@ -5,8 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 
-import eroica.network.utility.entity.portproxy.PortProxyStreamInformation;
-
+import eroica.network.utility.domain.portproxy.PortProxyStreamInformation;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -43,10 +42,10 @@ public class WriteCompletionHandler implements CompletionHandler<Integer, PortPr
 	public void failed(Throwable exc, PortProxyStreamInformation streamInfo) {
 		AsynchronousSocketChannel channel = streamInfo.getOutputDestination();
 		try {
-			log.warn("Failed to write to " + channel.getRemoteAddress() + ", so that the stream is to be shut down.",
+			log.info("Failed to write to " + channel.getRemoteAddress() + ", so that the stream is to be shut down.",
 					exc);
 		} catch (IOException e) {
-			log.warn("Failed to write (channel info unavailable[" + e.getMessage()
+			log.info("Failed to write (channel info unavailable[" + e.getMessage()
 					+ "]), so that the stream is to be shut down.", exc);
 		}
 		streamInfo.turnOff();

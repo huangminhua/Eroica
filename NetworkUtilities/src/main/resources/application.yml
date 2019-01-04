@@ -3,4 +3,4 @@ spring:
     name: @project.name@
 logging:
   level:
-    root: ERROR
+    root: WARN

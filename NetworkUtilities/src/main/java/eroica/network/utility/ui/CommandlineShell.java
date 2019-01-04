@@ -2,9 +2,10 @@ package eroica.network.utility.ui;
 
 import java.net.InetAddress;
 import java.util.Date;
+import java.util.logging.Logger;
 
-import eroica.network.utility.entity.ServerInformation;
-import eroica.network.utility.entity.portproxy.PortProxyServerInformation;
+import eroica.network.utility.domain.ServerInformation;
+import eroica.network.utility.domain.portproxy.PortProxyServerInformation;
 import eroica.network.utility.service.portproxy.PortProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -32,8 +33,8 @@ public class CommandlineShell {
 			@ShellOption() InetAddress connectaddress, @ShellOption() int connectport) {
 		ServerInformation server = portProxyService.findRegisterdServer(listenaddress, listenport);
 		if (server == null) {
-			PortProxyServerInformation newService = new PortProxyServerInformation(listenaddress, listenport, connectaddress,
-					connectport, new Date());
+			PortProxyServerInformation newService = new PortProxyServerInformation(listenaddress, listenport,
+					connectaddress, connectport, new Date());
 			try {
 				portProxyService.addServer(newService);
 				return "A new port proxy service added:\n" + newService;

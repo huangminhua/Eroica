@@ -18,7 +18,7 @@ public class ChannelUtils {
 			try {
 				channel.close();
 			} catch (Throwable t) {
-				log.warn("Close channel[" + channel + "] error. But nothing to remedy.", t);
+				log.info("Close channel[" + channel + "] error. But nothing to remedy.", t);
 			}
 	}
 }
