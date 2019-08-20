@@ -1,7 +1,7 @@
 package eroica.util.jxl;
 
 /**
- * Constants of this project.
+ * Constants of this package.
  * 
  * @author Minhua HUANG
  *

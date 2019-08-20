@@ -68,8 +68,7 @@ public enum BorderThicknessTemplate {
 	/**
 	 * Get the recommended template of a merged cell by its position.
 	 * 
-	 * @param column      the column of a cell
-	 * @param row         the row of a cell
+	 * @param mergedUnit  a merged cell
 	 * @param columnCount the whole column count of a table
 	 * @param rowCount    the whole row count of a table
 	 * @return the recommended template of a merged cell
@@ -79,18 +78,38 @@ public enum BorderThicknessTemplate {
 				mergedUnit.getLeft() == 0, mergedUnit.getRight() == columnCount - 1);
 	}
 
+	/**
+	 * Get the top border thickness of this template.
+	 * 
+	 * @return the top border thickness of this template
+	 */
 	public int getTopThickness() {
 		return topThickness;
 	}
 
+	/**
+	 * Get the bottom border thickness of this template.
+	 * 
+	 * @return the bottom border thickness of this template
+	 */
 	public int getBottomThickness() {
 		return bottomThickness;
 	}
 
+	/**
+	 * Get the left border thickness of this template.
+	 * 
+	 * @return the left border thickness of this template
+	 */
 	public int getLeftThickness() {
 		return leftThickness;
 	}
 
+	/**
+	 * Get the right border thickness of this template.
+	 * 
+	 * @return the right border thickness of this template
+	 */
 	public int getRightThickness() {
 		return rightThickness;
 	}

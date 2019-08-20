@@ -8,7 +8,6 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeSet;
 
-import eroica.throwable.EnumTransformException;
 import eroica.util.StringUtils;
 import eroica.util.reflect.ReflectUtils;
 
@@ -24,6 +23,7 @@ public class EnumUtil {
 	/**
 	 * Judge whether the enum class has such an enum who has this id.
 	 * 
+	 * @param           <U> the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return has or has not
@@ -37,6 +37,7 @@ public class EnumUtil {
 	 * annotated with {@link GetId} or having the name of "getId". If the enum
 	 * object is not found, a NoSuchElementException will be thrown.
 	 * 
+	 * @param           <U> the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return proper enum object
@@ -56,6 +57,7 @@ public class EnumUtil {
 	 * strings. If the enum object is not found, a NoSuchElementException will be
 	 * thrown.
 	 * 
+	 * @param           <U> the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return proper enum object
@@ -72,6 +74,7 @@ public class EnumUtil {
 	 * annotated with {@link GetId} or having the name of "getId". If the enum
 	 * object is not found, null will be returned.
 	 * 
+	 * @param           <U> the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return proper enum object
@@ -86,6 +89,7 @@ public class EnumUtil {
 	 * will transfer id into string before comparison, and the comparison is between
 	 * strings. If the enum object is not found, null will be returned.
 	 * 
+	 * @param           <U> the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return proper enum object
@@ -127,6 +131,7 @@ public class EnumUtil {
 	 * should has a non-args method annotated with {@link GetPrimaries} or having
 	 * the name of "getPrimaries".
 	 * 
+	 * @param           <U> the same as enumClass
 	 * @param enumClass the composite enum class
 	 * @param ids       id array, each may contain more than one id (ie.
 	 *                  1,2,3,4...)(if all ids are required , then "ALL" should be
@@ -172,6 +177,7 @@ public class EnumUtil {
 	 * should has a non-args method annotated with {@link GetPrimaries} or having
 	 * the name of "getPrimaries".
 	 * 
+	 * @param           <U> the same as enumClass
 	 * @param enumClass the composite enum class
 	 * @param ids       id array, each may contain more than one id (ie.
 	 *                  1,2,3,4...)(if all ids are required , then "ALL" should be

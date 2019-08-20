@@ -1,6 +1,4 @@
-package eroica.throwable;
-
-import eroica.util.enumeration.EnumUtil;
+package eroica.util.enumeration;
 
 /**
  * This exception is thrown by {@link EnumUtil}, when a composite enum object is

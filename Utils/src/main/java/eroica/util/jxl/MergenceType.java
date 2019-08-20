@@ -33,11 +33,23 @@ public enum MergenceType {
 		this.typeId = typeId;
 	}
 
+	/**
+	 * Get the id of this MergenceType element, which can be used as a placeholder
+	 * in a table, with which an xls file is to be generated.
+	 * 
+	 * @return id of this MergenceType element
+	 */
 	@GetId
 	public String getTypeId() {
 		return typeId;
 	}
-	
+
+	/**
+	 * Same as getTypeId.Get the id of this MergenceType element, which can be used
+	 * as a placeholder in a table, with which an xls file is to be generated.
+	 * 
+	 * @return id of this MergenceType element
+	 */
 	@Override
 	public String toString() {
 		return typeId;

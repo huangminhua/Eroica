@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
- * Tools for reflection
+ * Tools for reflection.
  * 
  * @author Minhua HUANG
  */

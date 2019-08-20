@@ -2,21 +2,22 @@ package eroica.util.concurrent;
 
 /**
  * If you want to make some queues for mutually exclusive events which can be
- * controlled by key objects(such as strings), you are suggested to try this
- * class instead of queue.
- * {@code private static final HashSynchronizerGroup SYN = new HashSynchronizerGroup();<br>
+ * recognized by key objects(such as strings), you are suggested to try this
+ * class.<br>
+ * <code>private static final HashSynchronizerGroup SYNG = new HashSynchronizerGroup();</code><br>
  * ...<br>
- * String key = ...;<br>
- * synchronized (SYNG.getSyner(key)) {<br>
- * ...<br> } }
+ * <code>String key = ...;</code><br>
+ * <code>synchronized (SYNG.getSyner(key)) {</code><br>
+ * ...<br>
+ * <code>}</code>
  * 
  * @author Minhua HUANG
  *
  */
-public class HashSynchronizerGroup implements SynchronizerGroup {
-	private static int DEFAULT_SIZE = 128;
-	private HashSynchronizer[] syners;
-	private int size;
+public class HashSynchronizerGroup {
+	private final static int DEFAULT_SIZE = 131;
+	private final HashSynchronizer[] syners;
+	private final int size;
 
 	/**
 	 * Create a HashSynchronizerGroup
@@ -43,8 +44,7 @@ public class HashSynchronizerGroup implements SynchronizerGroup {
 	 * @param key the key controlling mutually exclusive events
 	 * @return the object to be synchronized
 	 */
-	@Override
-	public Synchornizer getSyner(Object key) {
+	public HashSynchronizer getSyner(Object key) {
 		return syners[hash(key)];
 	}
 
@@ -59,19 +59,18 @@ public class HashSynchronizerGroup implements SynchronizerGroup {
 	 * @author Minhua HUANG
 	 *
 	 */
-	public class HashSynchronizer implements Synchornizer {
+	public class HashSynchronizer {
+		private final String id;
+
 		private HashSynchronizer(String id) {
 			this.id = id;
 		}
 
-		String id;
-
-		public String getId() {
+		String getId() {
 			return id;
 		}
 
-		@Override
-		public SynchronizerGroup getGroup() {
+		HashSynchronizerGroup getGroup() {
 			return HashSynchronizerGroup.this;
 		}
 	}

@@ -29,10 +29,9 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 /**
- * Excel generator using jxl.
- * 
- * @TODO Currently only string data are supported, other kind of data may be
- *       wrongly disposed.
+ * Excel generator with jxl.<br>
+ * TODO Currently only string data are supported, other kind of data may be
+ * wrongly disposed.
  * 
  * @author Minhua HUANG
  *
@@ -43,7 +42,7 @@ public class ExcelGenerator {
 	 * Get the recommended format of a cell, choosing border widths according to its
 	 * position.
 	 * 
-	 * @param font
+	 * @param font      the font
 	 * @param alignment column alignment
 	 * @param template  Border thickness template
 	 * @throws WriteException thrown by jxl package
@@ -71,9 +70,10 @@ public class ExcelGenerator {
 
 	/**
 	 * Generate a .xls file with recommended format.<br>
+	 * TODO If the total amount of data is larger than Constants.MAX_BODY_ROWS, the
+	 * mergence types may result in incorrect result.
 	 * 
-	 * @TODO If the total amount of data is larger than Constants.MAX_BODY_ROWS, the
-	 *       mergence types may result in incorrect result.
+	 * @param           <T> type of data elements
 	 * @param title     sheet name and title
 	 * @param heads     table heads, mergence types are supported
 	 * @param keys      the keys of columns in data
@@ -129,6 +129,7 @@ public class ExcelGenerator {
 	 * should be created and input. If more than one sheet are of query-list kind,
 	 * the invoker may invoke this function on every sheet.
 	 * 
+	 * @param        <T> type of data elements
 	 * @param sheet  a sheet of excel workbook
 	 * @param title  the title shown at top of the sheet(if it is null, the sheet
 	 *               will start with table heads)
@@ -185,6 +186,7 @@ public class ExcelGenerator {
 	 * the invoker may invoke this function on every sheet. Multi-line heads are
 	 * supported.
 	 * 
+	 * @param        <T> type of data elements
 	 * @param sheet  a sheet of excel workbook
 	 * @param title  the title shown at top of the sheet(if it is null, the sheet
 	 *               will start with table heads)
@@ -212,6 +214,7 @@ public class ExcelGenerator {
 	 * supported. Where the table starts is according to leftMargin and topMargin,
 	 * so that the table may not start at top-left.
 	 * 
+	 * @param            <T> type of data elements
 	 * @param sheet      a sheet of excel workbook
 	 * @param leftMargin blank columns spared out of the left of the table
 	 * @param topMargin  blank rows spared out of the top of the table
@@ -317,7 +320,7 @@ public class ExcelGenerator {
 			}
 		}
 
-		/* 设置列宽 */
+		/* set column width */
 		for (int i = 0; i < columnCount; i++)
 			sheet.setColumnView(i + leftMargin, resultWidths[i]);
 	}
