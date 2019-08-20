@@ -32,7 +32,7 @@ public class HashSynchronizerGroup {
 	}
 
 	/**
-	 * Create a HashSynchronizerGroup of the default size 128.
+	 * Create a HashSynchronizerGroup of the default size 131.
 	 */
 	public HashSynchronizerGroup() {
 		this(DEFAULT_SIZE);
