@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.function.Function;
 
 import org.apache.commons.collections4.MapUtils;
 
@@ -173,10 +174,10 @@ public class DataTable {
 	}
 
 	/**
-	 * Get a List(Map(String, ?)) object as a row.
+	 * Get a Map(String, ?) object as a row.
 	 * 
 	 * @param row row number, 0 as the first row
-	 * @return a List(Map(String, ?)) object as a row
+	 * @return a Map(String, ?) object as a row
 	 */
 	public Map<String, Object> getRow(int row) {
 		Map<String, Object> result = new LinkedHashMap<>(columnCount());
@@ -199,7 +200,7 @@ public class DataTable {
 	 * Get an object from DataTable by given column key and row number. The return
 	 * type can be assigned.
 	 * 
-	 * @param            <C> return type
+	 * @param <C>        return type
 	 * @param row        row number, 0 as the first row
 	 * @param columnKey  key of a column, which represents a column name of database
 	 * @param returnType return type
@@ -220,7 +221,7 @@ public class DataTable {
 	 * When DataTable has only one element(one row with one column), return its
 	 * value. The return type can be assigned.
 	 * 
-	 * @param            <C> return type
+	 * @param <C>        return type
 	 * @param returnType return type
 	 * @return the object requested
 	 * @throws UnsupportedOperationException thrown when the returned object cannot
@@ -315,4 +316,17 @@ public class DataTable {
 		return sb.toString();
 	}
 
+	/**
+	 * Transform this data table to a bean list.
+	 * 
+	 * @param <V>         bean type
+	 * @param beanBuilder tranformation function
+	 * @return
+	 */
+	public <V> List<V> toBeanList(Function<Map<String, Object>, V> beanBuilder) {
+		List<V> l = new ArrayList<V>();
+		for (int i = 0; i < rowCount(); i++)
+			l.add(beanBuilder.apply(getRow(i)));
+		return l;
+	}
 }

@@ -17,7 +17,7 @@ import eroica.util.reflect.ReflectUtils;
  * @author Minhua HUANG
  *
  */
-public class EnumUtil {
+public class EnumUtils {
 	public static final String ALL = "ALL";
 
 	/**

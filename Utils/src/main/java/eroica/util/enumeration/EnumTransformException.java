@@ -1,7 +1,7 @@
 package eroica.util.enumeration;
 
 /**
- * This exception is thrown by {@link EnumUtil}, when a composite enum object is
+ * This exception is thrown by {@link EnumUtils}, when a composite enum object is
  * transformed into its primary enum objects.
  * 
  * @author Minhua HUANG

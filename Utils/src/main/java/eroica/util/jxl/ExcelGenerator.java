@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import eroica.util.enumeration.EnumUtil;
+import eroica.util.enumeration.EnumUtils;
 import jxl.Cell;
 import jxl.Range;
 import jxl.Workbook;
@@ -258,7 +258,7 @@ public class ExcelGenerator {
 						if (valueT != null)
 							value = valueT.toString();
 					}
-					if (StringUtils.isNotEmpty(value) && !EnumUtil.existById(MergenceType.class, value)) {
+					if (StringUtils.isNotEmpty(value) && !EnumUtils.existById(MergenceType.class, value)) {
 						if (valueOfTheMergedCell == null) {
 							valueOfTheMergedCell = value;
 							isValueAtHead = isLineAtHead;
