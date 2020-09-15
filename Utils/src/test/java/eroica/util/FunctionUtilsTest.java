@@ -8,6 +8,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.jupiter.api.Test;
 
+import eroica.util.concurrent.FunctionLockUtils;
+
 public class FunctionUtilsTest {
 	final static Lock l1 = new ReentrantLock();
 	final static Lock l2 = new ReentrantLock();
@@ -37,7 +39,7 @@ public class FunctionUtilsTest {
 			e.printStackTrace();
 		}
 		assertTimeout(Duration.ofSeconds(11),
-				() -> FunctionUtils.withLocks((t) -> "Hello " + t + ".", l1, l2).apply("Tom"));
+				() -> FunctionLockUtils.withLocks((t) -> "Hello " + t + ".", l1, l2).apply("Tom"));
 
 	}
 }

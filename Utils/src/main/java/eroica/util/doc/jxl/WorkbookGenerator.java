@@ -1,4 +1,4 @@
-package eroica.util.jxl;
+package eroica.util.doc.jxl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,14 +29,14 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 /**
- * Excel generator with jxl.<br>
+ * Wookbook generator with jxl.<br>
  * TODO Currently only string data are supported, other kind of data may be
  * wrongly disposed.
  * 
  * @author Minhua HUANG
  *
  */
-public class ExcelGenerator {
+public class WorkbookGenerator {
 
 	/**
 	 * Get the recommended format of a cell, choosing border widths according to its
@@ -73,7 +73,7 @@ public class ExcelGenerator {
 	 * TODO If the total amount of data is larger than Constants.MAX_BODY_ROWS, the
 	 * mergence types may result in incorrect result.
 	 * 
-	 * @param           <T> type of data elements
+	 * @param <T>       type of data elements
 	 * @param title     sheet name and title
 	 * @param heads     table heads, mergence types are supported
 	 * @param keys      the keys of columns in data
@@ -91,19 +91,20 @@ public class ExcelGenerator {
 			workbook = Workbook.createWorkbook(baos);
 			int totalSize = data.size();
 			// the count of sheets
-			int pages = totalSize % Constants.MAX_BODY_ROWS == 0 ? totalSize / Constants.MAX_BODY_ROWS
-					: totalSize / Constants.MAX_BODY_ROWS + 1;
+			int pages = totalSize % Constants.XLS_WORKBOOK_SHEET_MAX_ROWS == 0
+					? totalSize / Constants.XLS_WORKBOOK_SHEET_MAX_ROWS
+					: totalSize / Constants.XLS_WORKBOOK_SHEET_MAX_ROWS + 1;
 			// the data count of the last sheet
-			int lastPageSize = totalSize % Constants.MAX_BODY_ROWS == 0 ? Constants.MAX_BODY_ROWS
-					: totalSize % Constants.MAX_BODY_ROWS;
+			int lastPageSize = totalSize % Constants.XLS_WORKBOOK_SHEET_MAX_ROWS == 0 ? Constants.XLS_WORKBOOK_SHEET_MAX_ROWS
+					: totalSize % Constants.XLS_WORKBOOK_SHEET_MAX_ROWS;
 			for (int i = 0; i < pages; i++) {
 				// sheet name/title of the current sheet
 				String currentTitle = title == null ? String.valueOf(i + 1)
 						: pages == 1 ? title : title + "-" + (i + 1);
 				// sub list of the current sheet
-				List<Map<String, T>> subList = data.subList(i * Constants.MAX_BODY_ROWS,
-						i < pages - 1 ? ((i + 1) * Constants.MAX_BODY_ROWS)
-								: i * Constants.MAX_BODY_ROWS + lastPageSize);
+				List<Map<String, T>> subList = data.subList(i * Constants.XLS_WORKBOOK_SHEET_MAX_ROWS,
+						i < pages - 1 ? ((i + 1) * Constants.XLS_WORKBOOK_SHEET_MAX_ROWS)
+								: i * Constants.XLS_WORKBOOK_SHEET_MAX_ROWS + lastPageSize);
 				generateListSheet(workbook.createSheet(currentTitle, i), showTitle && title != null ? title : null,
 						heads, keys, null, subList);
 			}
@@ -129,7 +130,7 @@ public class ExcelGenerator {
 	 * should be created and input. If more than one sheet are of query-list kind,
 	 * the invoker may invoke this function on every sheet.
 	 * 
-	 * @param        <T> type of data elements
+	 * @param <T>    type of data elements
 	 * @param sheet  a sheet of excel workbook
 	 * @param title  the title shown at top of the sheet(if it is null, the sheet
 	 *               will start with table heads)
@@ -186,7 +187,7 @@ public class ExcelGenerator {
 	 * the invoker may invoke this function on every sheet. Multi-line heads are
 	 * supported.
 	 * 
-	 * @param        <T> type of data elements
+	 * @param <T>    type of data elements
 	 * @param sheet  a sheet of excel workbook
 	 * @param title  the title shown at top of the sheet(if it is null, the sheet
 	 *               will start with table heads)
@@ -214,7 +215,7 @@ public class ExcelGenerator {
 	 * supported. Where the table starts is according to leftMargin and topMargin,
 	 * so that the table may not start at top-left.
 	 * 
-	 * @param            <T> type of data elements
+	 * @param <T>        type of data elements
 	 * @param sheet      a sheet of excel workbook
 	 * @param leftMargin blank columns spared out of the left of the table
 	 * @param topMargin  blank rows spared out of the top of the table

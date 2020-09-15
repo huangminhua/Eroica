@@ -1,4 +1,4 @@
-package eroica.util.jxl;
+package eroica.util.doc.jxl;
 
 import jxl.write.WritableFont;
 import jxl.write.WritableFont.FontName;

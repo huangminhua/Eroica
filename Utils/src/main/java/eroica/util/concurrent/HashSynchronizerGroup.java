@@ -1,9 +1,9 @@
 package eroica.util.concurrent;
 
 /**
- * If you want to make some queues for mutually exclusive events whose exclusivity can be
- * defined by key objects(such as strings), you are suggested to try this
- * class.<br>
+ * If you want to make some queues for mutually exclusive events whose
+ * exclusivity can be defined by key objects(such as strings), you are suggested
+ * to try this class.<br>
  * <code>private static final HashSynchronizerGroup SYNG = new HashSynchronizerGroup();</code><br>
  * ...<br>
  * <code>String key = ...;</code><br>

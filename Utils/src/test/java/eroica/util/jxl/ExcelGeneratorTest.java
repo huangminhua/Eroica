@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import eroica.util.doc.jxl.MergenceType;
+import eroica.util.doc.jxl.WorkbookGenerator;
 import jxl.Workbook;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
@@ -73,9 +75,9 @@ public class ExcelGeneratorTest {
 		m.put("name", MergenceType.MERGE_TO_LEFT.getTypeId());
 //		m.put("health", ExcelGenerationUtil.MERGED_TYPE_TO_RIGHT);
 		data.add(m);
-		ExcelGenerator.generateListSheet(sheet, title, heads, keys, new int[] { 50, 50, 50, 50, 50, 50, 50 },
+		WorkbookGenerator.generateListSheet(sheet, title, heads, keys, new int[] { 50, 50, 50, 50, 50, 50, 50 },
 				data);
-		ExcelGenerator.applyAutoWidth(sheet);
+		WorkbookGenerator.applyAutoWidth(sheet);
 		workbook.write();
 		workbook.close();
 	}

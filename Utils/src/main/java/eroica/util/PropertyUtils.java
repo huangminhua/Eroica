@@ -12,7 +12,8 @@ public class PropertyUtils {
 
 	/**
 	 * Fulfill src with props, according to the format of prefix and suffix.<br>
-	 * For example: 1 src = "a{b}{c}", prefix = "{", suffix = "}",<br>
+	 * For example: <br>
+	 * 1 src = "a{b}{c}", prefix = "{", suffix = "}",<br>
 	 * props contains {"b": "c", "c": "d"}, then the result is acd.<br>
 	 * 2 src = "a{b{c}}", prefix = "{", suffix = "}",<br>
 	 * props contains {"b": "c", "c": "d", "bd": "ef"}, then the result is aef.<br>
@@ -37,5 +38,18 @@ public class PropertyUtils {
 			}
 		} while (replaced);
 		return src;
+	}
+
+	/**
+	 * Deep clone props.
+	 * 
+	 * @param props
+	 * @return
+	 */
+	public static Properties clone(Properties props) {
+		Properties tmp = new Properties();
+		for (String key : props.stringPropertyNames())
+			tmp.setProperty(key, props.getProperty(key));
+		return tmp;
 	}
 }

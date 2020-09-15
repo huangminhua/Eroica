@@ -1,4 +1,4 @@
-package eroica.util.jxl;
+package eroica.util.doc.jxl;
 
 /**
  * This class describe the properties of a merged unit.
@@ -6,7 +6,7 @@ package eroica.util.jxl;
  * @author Minhua HUANG
  *
  */
-class MergedUnit {
+public class MergedUnit {
 	private int left;// left column
 	private int right;// right column
 	private int top;// top row

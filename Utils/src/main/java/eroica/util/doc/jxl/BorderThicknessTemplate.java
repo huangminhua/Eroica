@@ -1,4 +1,4 @@
-package eroica.util.jxl;
+package eroica.util.doc.jxl;
 
 /**
  * Border thickness template determined by cell position.

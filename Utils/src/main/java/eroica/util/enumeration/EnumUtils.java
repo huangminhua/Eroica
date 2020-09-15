@@ -1,5 +1,6 @@
 package eroica.util.enumeration;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,7 +10,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import eroica.util.StringUtils;
-import eroica.util.reflect.ReflectUtils;
 
 /**
  * Tools for enums.
@@ -23,7 +23,7 @@ public class EnumUtils {
 	/**
 	 * Judge whether the enum class has such an enum who has this id.
 	 * 
-	 * @param           <U> the same as enumClass
+	 * @param <U>       the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return has or has not
@@ -37,7 +37,7 @@ public class EnumUtils {
 	 * annotated with {@link GetId} or having the name of "getId". If the enum
 	 * object is not found, a NoSuchElementException will be thrown.
 	 * 
-	 * @param           <U> the same as enumClass
+	 * @param <U>       the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return proper enum object
@@ -57,7 +57,7 @@ public class EnumUtils {
 	 * strings. If the enum object is not found, a NoSuchElementException will be
 	 * thrown.
 	 * 
-	 * @param           <U> the same as enumClass
+	 * @param <U>       the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return proper enum object
@@ -74,7 +74,7 @@ public class EnumUtils {
 	 * annotated with {@link GetId} or having the name of "getId". If the enum
 	 * object is not found, null will be returned.
 	 * 
-	 * @param           <U> the same as enumClass
+	 * @param <U>       the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return proper enum object
@@ -89,7 +89,7 @@ public class EnumUtils {
 	 * will transfer id into string before comparison, and the comparison is between
 	 * strings. If the enum object is not found, null will be returned.
 	 * 
-	 * @param           <U> the same as enumClass
+	 * @param <U>       the same as enumClass
 	 * @param enumClass the enum class
 	 * @param id        id of the enum
 	 * @return proper enum object
@@ -131,7 +131,7 @@ public class EnumUtils {
 	 * should has a non-args method annotated with {@link GetPrimaries} or having
 	 * the name of "getPrimaries".
 	 * 
-	 * @param           <U> the same as enumClass
+	 * @param <U>       the same as enumClass
 	 * @param enumClass the composite enum class
 	 * @param ids       id array, each may contain more than one id (ie.
 	 *                  1,2,3,4...)(if all ids are required , then "ALL" should be
@@ -177,7 +177,7 @@ public class EnumUtils {
 	 * should has a non-args method annotated with {@link GetPrimaries} or having
 	 * the name of "getPrimaries".
 	 * 
-	 * @param           <U> the same as enumClass
+	 * @param <U>       the same as enumClass
 	 * @param enumClass the composite enum class
 	 * @param ids       id array, each may contain more than one id (ie.
 	 *                  1,2,3,4...)(if all ids are required , then "ALL" should be
@@ -202,12 +202,12 @@ public class EnumUtils {
 
 	private static Method getIdMethod(@SuppressWarnings("rawtypes") Class<? extends Enum> enumClass)
 			throws NoSuchMethodException {
-		return ReflectUtils.getNoArgsMethodByAnnotationOrName(enumClass, GetId.class, "getId");
+		return getNoArgsMethodByAnnotationOrName(enumClass, GetId.class, "getId");
 	}
 
 	private static Method getPrimariesMethod(@SuppressWarnings("rawtypes") Class<? extends Enum> enumClass)
 			throws NoSuchMethodException {
-		return ReflectUtils.getNoArgsMethodByAnnotationOrName(enumClass, GetPrimaries.class, "getPrimaries");
+		return getNoArgsMethodByAnnotationOrName(enumClass, GetPrimaries.class, "getPrimaries");
 	}
 
 	private static Object getId(Enum<?> compositeValue)
@@ -219,6 +219,34 @@ public class EnumUtils {
 	private static Enum<? extends Enum<?>>[] getPrimaries(Enum<?> compositeValue)
 			throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		return (Enum<?>[]) getPrimariesMethod(compositeValue.getClass()).invoke(compositeValue, new Object[0]);
+	}
+
+	/**
+	 * Get a method with no args by annotation or method name from clazz.
+	 * 
+	 * @param clazz           Class object
+	 * @param annotationClass annotation class
+	 * @param methodName      method name
+	 * @return proper method
+	 * @throws NoSuchMethodException no such method or the annotated method has args
+	 */
+	private static Method getNoArgsMethodByAnnotationOrName(Class<?> clazz, Class<? extends Annotation> annotationClass,
+			String methodName) throws NoSuchMethodException {
+		Method[] methods = clazz.getMethods();
+		for (Method method : methods) {
+			if (method.isAnnotationPresent(annotationClass)) {
+				if (method.getParameterTypes().length > 0)
+					throw new NoSuchMethodException("The method " + clazz.getName() + "." + method.getName()
+							+ " should not have any arguments.");
+				return method;
+			}
+		}
+		try {
+			return clazz.getMethod(methodName, new Class[0]);
+		} catch (NoSuchMethodException e) {
+			throw new NoSuchMethodException("No such method. Either add @" + annotationClass.getName()
+					+ " to a proper method or a public " + methodName + "() method to " + clazz.getName() + ".");
+		}
 	}
 
 }

@@ -43,7 +43,8 @@ public class JoinUtils {
 	 * @param <LR>     the two result sets should extend the same LR class
 	 * @param lc       the left result set
 	 * @param rc       the left result set
-	 * @param joinOn   the join condition and the sort condition
+	 * @param joinOn   the sort condition of lc and rc, and the join condition of
+	 *                 them
 	 * @param joinType the join type
 	 * @return
 	 */
